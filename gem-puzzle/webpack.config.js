@@ -78,7 +78,7 @@ module.exports = ({ development }) => ({
         // { from: './src/assets/sounds/*.mp3', to: './assets/sounds/[name][ext]' },
       ],
     }),*/
-    new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
+    // new CleanWebpackPlugin({ cleanStaleWebpackAssets: false }),
     // ...esLintPlugin(development),
   ],
   resolve: {
