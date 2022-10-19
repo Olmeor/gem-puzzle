@@ -1,0 +1,89 @@
+.page {
+  max-width: 400px;
+  padding: 2rem;
+  margin: 0 auto;
+  text-align: center;
+  user-select: none;
+}
+
+h1 {
+  /* font: 2rem/1.2 Georgia, serif; */
+  margin-bottom: 1em
+}
+
+.fifteen {
+  width: 100%;
+  padding-bottom: 100%;
+  /* background: #e5d6f6; */
+  background: lightblue;
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.gameShuffle {
+  pointer-events: none;
+  opacity: .8;
+  cursor: default;
+}
+
+.gameShuffle .item {
+  transition: transform 70ms;
+}
+
+.fifteen .item {
+  outline: 0;
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 25%;
+  height: 25%;
+  margin: 0;
+  padding: 0;
+  /* border: none; */
+  /* border: solid 2px white; */
+  background: #000;
+  color: #fff;
+  font-size: 2rem;
+  cursor: pointer;
+  box-shadow: inset 1px 1px lightblue;
+  transition: transform .2s, filter .5s;
+  border-radius: 8px;
+}
+
+.fifteen .itemVal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 84%;
+  height: 84%;
+  margin: 8%;
+  /* box-shadow: inset 0 0 0 2px #922ec5; */
+  box-shadow: inset 0 0 0 2px blue;
+}
+
+.fifteenWon .item {
+  filter: brightness(200%);
+}
+
+.button {
+  color: #fff;
+  background: #000;
+  font: 1.2rem/1.4 Georgia, serif;
+  border: none;
+  cursor: pointer;
+  padding: .5em 1.5em;
+  border-radius: 10px;
+  box-shadow: 5px 5px 2px #999;
+  transition: 0.3s;
+}
+
+/* .button:hover {
+  background: blue;
+  transition: 0.3s;
+} */
+
+.button:active {
+  box-shadow: 2px 2px #666;
+  transform: translate(4px, 4px);
+  transition: 0.3s;
+}
