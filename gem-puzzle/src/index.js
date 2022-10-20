@@ -1,37 +1,42 @@
 import './normalize.css'
 import './style.css'
 
-let countItems = 16;
-const values = new Array(countItems).fill(0).map((item, index) => index + 1);
-const fifteen = document.querySelector('.fifteen');
-let arr = [];
+// Init field
 
-for (let i = 0; i < values.length; i++) {
-  let last;
-  if (i == values.length - 1) {last = ''};
-  arr[i] =
+let blankNumber = 16;
+
+function initLayout (blankNumber) {
+  document.body.innerHTML =
   `
-  <button class="item" data-matrix-id="${i + 1}">
-    <span class="itemVal">${i + 1}</span>
-  </button>
-  `
-  fifteen.innerHTML += arr[i];
+  <div class="page">
+    <h1>Gem Puzzle</h1>
+    <div class="fifteen" id="fifteen"></div>
+    <button class="button" id="shuffle">New game</button>
+  </div>
+  `;
+
+  const values = new Array(blankNumber).fill(0).map((item, index) => index + 1);
+  const fifteen = document.querySelector('.fifteen');
+  let arr = [];
+
+  for (let i = 0; i < values.length; i++) {
+    let last;
+    if (i == values.length - 1) {last = ''};
+    arr[i] =
+    `
+    <button class="item" data-matrix-id="${i + 1}">
+      <span class="itemVal">${i + 1}</span>
+    </button>
+    `
+    fifteen.innerHTML += arr[i];
+  }
 }
 
-// fifteen.innerHTML +=
-// `
-// <div>
-//   <button class="button" id="shuffle">Перемешать</button>
-// </div>
-// `
+initLayout (blankNumber);
 
-
-const containerNode = document.getElementById("fifteen");
 const itemNodes = document.querySelectorAll(".item");
-// const itemNodes = Array.from(containerNode.querySelectorAll(".item"));
 const itemArray = Array.from(itemNodes);
-console.log(itemArray);
-itemArray[countItems - 1].style.display = "none";
+itemArray[blankNumber - 1].style.display = "none";
 
 let matrix = getMatrix(itemArray.map(e => +(e.dataset.matrixId)));
 
@@ -49,7 +54,6 @@ function getMatrix(arr) {
   return matrix;
 }
 
-console.log(matrix);
 // Init position
 
 function setPositionItems(matrix) {
@@ -67,50 +71,84 @@ setPositionItems(matrix);
 
 // Shuffle
 
+const maxShuffleCount = blankNumber ** 3;
+// let timer;
+
+// document.getElementById("shuffle").addEventListener("click", () => {
+
+//   let shuffleCount = 0;
+//   clearInterval(timer);
+
+//   if (shuffleCount == 0) {
+//     timer = setInterval(() => {
+//       randomSwap(matrix);
+//       setPositionItems(matrix);
+
+//       shuffleCount++;
+//       if (shuffleCount > maxShuffleCount) {
+//         clearInterval(timer);
+//       }
+//     }, 1);
+//   }
+// });
+
 document.getElementById("shuffle").addEventListener("click", () => {
-  const shuffledArray = shuffleArray(matrix.flat());
-  matrix = getMatrix(shuffledArray);
-  setPositionItems(matrix);
-  // let e, t = 0;
-  // clearInterval(e), gameNode.classList.add(shuffleClass), e = setInterval(() => {
-  //   randomSwap(matrix), setPositionItems(matrix), t += 1, t >= maxShuffles && (t = 0, clearInterval(e), gameNode.classList.remove(shuffleClass))
-  // }, 70)
+  let shuffleCount = 0;
+  while (shuffleCount < maxShuffleCount) {
+    randomSwap(matrix);
+    setPositionItems(matrix);
+    shuffleCount++;
+  }
 });
 
+let blockedCoords;
+function randomSwap(matrix) {
+  const blankCoords = findCoordinatesByNumber(blankNumber, matrix);
+  const validCoords = findValidCoords({
+    blankCoords,
+    matrix,
+    blockedCoords,
+  });
 
-function shuffleArray(array) {
-  for (let i = array.length - 1; i > 0; i--) {
-    let j = Math.floor(Math.random() * (i + 1));
-    [array[i], array[j]] = [array[j], array[i]];
+  const swapCoords = validCoords[
+    Math.floor(Math.random() * validCoords.length)
+  ];
+
+  swapButtons(blankCoords, swapCoords, matrix);
+  blockedCoords = blankCoords
+}
+
+function findValidCoords({blankCoords, matrix, blockedCoords}) {
+  const validCoords = [];
+  for (let y = 0; y < matrix.length; y++) {
+    for (let x = 0; x < matrix[y].length; x++) {
+      if(isValidForSwap({x, y}, blankCoords)) {
+        if(!blockedCoords || !(blockedCoords.x == x && blockedCoords.y == y)) {
+          validCoords.push({x, y})
+        }
+      }
+    }
   }
-	return array;
+  return validCoords;
 }
 
 // Shift
 
-containerNode.addEventListener("click", e => {
-  const blankNumber = 16;
+fifteen.addEventListener("click", e => {
   let buttonNode = e.target.closest("button");
   if (!buttonNode) {
     return;
   }
 
   const buttonNumber = +(buttonNode.dataset.matrixId);
-  console.log(buttonNumber)
-
   const buttonCoords = findCoordinatesByNumber(buttonNumber, matrix);
   const blankCoords = findCoordinatesByNumber(blankNumber, matrix);
-
-  console.log(buttonCoords, blankCoords);
-
   let isValid = isValidForSwap(buttonCoords, blankCoords);
 
   if (isValid) {
     swapButtons(buttonCoords, blankCoords, matrix);
     setPositionItems(matrix);
   }
-
-  console.log(isValid)
 });
 
 function findCoordinatesByNumber(num, matrix) {
