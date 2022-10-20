@@ -1,4 +1,4 @@
-.page {
+.wrapper {
   max-width: 1280px;
   padding: 2rem 20vw;
   margin: 0 auto;
@@ -7,9 +7,9 @@
 }
 
 h1 {
-  margin-bottom: 1em;
   font-size: 2rem;
   text-shadow: 1px 1px 2px blue;
+  margin-bottom: 1rem;
 }
 
 .fifteen {
@@ -26,30 +26,28 @@ h1 {
   cursor: default;
 }
 
-.gameShuffle .item {
-  transition: transform 70ms;
+.gameShuffle .dice {
+  transition: transform 0.1s;
 }
 
-.fifteen .item {
-  outline: 0;
+.fifteen .dice {
   position: absolute;
   left: 0;
   top: 0;
   width: 25%;
   height: 25%;
-  margin: 0;
-  padding: 0;
-  background: #000;
-  color: #fff;
+  background: black;
+  color: white;
   font-size: 2rem;
-  transition: transform .2s, filter .5s;
+  transition: transform .3s;
   border-radius: 8px;
   border: solid 1px lightblue;
+  outline: 0;
 }
 
-.fifteen .itemVal {
+.fifteen .diceNumber {
   display: flex;
-  align-items: center;
+  align-dices: center;
   justify-content: center;
   width: 85%;
   height: 85%;
@@ -57,15 +55,11 @@ h1 {
   margin: 8%;
 }
 
-/* .fifteenWon .item {
-  filter: brightness(200%);
-} */
-
 .button {
-  color: #fff;
-  background: #000;
-  font: 1.2rem/1.4 Georgia, serif;
-  padding: .5em 1.5em;
+  color: white;
+  background: black;
+  font-size: 1rem;
+  padding: .5rem 1.5em;
   border-radius: 10px;
   box-shadow: 5px 5px 2px #999;
   transition: 0.3s;
@@ -74,13 +68,16 @@ h1 {
 
 }
 
-/* .button:hover {
-  background: blue;
-  transition: 0.3s;
-} */
-
 .button:active {
   box-shadow: 2px 2px #666;
   transform: translate(4px, 4px);
   transition: 0.3s;
+}
+
+.size-wrapper {
+  display: flex;
+  justify-content: space-between;
+  font-weight: 700;
+  text-shadow: 1px 1px 2px blue;
+  margin-bottom: 1rem;
 }

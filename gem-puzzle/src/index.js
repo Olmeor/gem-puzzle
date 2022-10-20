@@ -3,42 +3,53 @@ import './style.css'
 
 // Init field
 
-let blankNumber = 16;
+let countSide = 4;
+let diceAmount = countSide ** 2;
 
-function initLayout (blankNumber) {
+function initLayout (diceAmount) {
   document.body.innerHTML =
   `
-  <div class="page">
+  <div class="wrapper">
     <h1>Gem Puzzle</h1>
     <div class="fifteen" id="fifteen"></div>
+    <div class="size-wrapper"></div>
     <button class="button" id="shuffle">New game</button>
   </div>
   `;
 
-  const values = new Array(blankNumber).fill(0).map((item, index) => index + 1);
+  const values = new Array(diceAmount).fill(0).map((item, index) => index + 1);
   const fifteen = document.querySelector('.fifteen');
+  const size = document.querySelector('.size-wrapper');
   let arr = [];
 
   for (let i = 0; i < values.length; i++) {
-    let last;
-    if (i == values.length - 1) {last = ''};
     arr[i] =
     `
-    <button class="item" data-matrix-id="${i + 1}">
-      <span class="itemVal">${i + 1}</span>
+    <button class="dice" data-matrix-id="${i + 1}">
+      <span class="diceNumber">${i + 1}</span>
     </button>
     `
     fifteen.innerHTML += arr[i];
   }
+
+  for (let i = 3; i <= 8; i++) {
+    size.innerHTML +=
+    `
+    <div>
+      <input type="radio" id="${i}x${i}" name="size" value="${i}"/>
+      <label for="${i}x${i}">${i}x${i}</label>
+    </div>
+    `
+  }
 }
 
-initLayout (blankNumber);
+initLayout (diceAmount);
 
-const itemNodes = document.querySelectorAll(".item");
-const itemArray = Array.from(itemNodes);
-itemArray[blankNumber - 1].style.display = "none";
+const diceNodes = document.querySelectorAll(".dice");
+const diceArray = Array.from(diceNodes);
+diceArray[diceAmount - 1].style.display = "none";
 
-let matrix = getMatrix(itemArray.map(e => +(e.dataset.matrixId)));
+let matrix = getMatrix(diceArray.map(e => +(e.dataset.matrixId)));
 
 function getMatrix(arr) {
   const matrix = [[], [], [], []];
@@ -56,102 +67,76 @@ function getMatrix(arr) {
 
 // Init position
 
-function setPositionItems(matrix) {
-  for (let y = 0; y < matrix.length; y++)
+function setPositionDices(matrix) {
+  for (let y = 0; y < matrix.length; y++) {
     for (let x = 0; x < matrix[y].length; x++) {
-      setNodeStyles(itemArray[matrix[y][x] - 1], x, y)
+      setNodeStyles(diceArray[matrix[y][x] - 1], x, y)
     }
+  }
 }
 
 function setNodeStyles(node, x, y) {
   node.style.transform = `translate3D(${100 * x}%, ${100 * y}%, 0)`
 }
 
-setPositionItems(matrix);
+setPositionDices(matrix);
 
 // Shuffle
 
-const maxShuffleCount = blankNumber ** 3;
-// let timer;
+const maxShuffleCount = diceAmount ** 3;
+let falseCoords;
 
-// document.getElementById("shuffle").addEventListener("click", () => {
-
-//   let shuffleCount = 0;
-//   clearInterval(timer);
-
-//   if (shuffleCount == 0) {
-//     timer = setInterval(() => {
-//       randomSwap(matrix);
-//       setPositionItems(matrix);
-
-//       shuffleCount++;
-//       if (shuffleCount > maxShuffleCount) {
-//         clearInterval(timer);
-//       }
-//     }, 1);
-//   }
-// });
-
-document.getElementById("shuffle").addEventListener("click", () => {
+document.getElementById("shuffle").onclick = () => {
   let shuffleCount = 0;
   while (shuffleCount < maxShuffleCount) {
     randomSwap(matrix);
-    setPositionItems(matrix);
+    setPositionDices(matrix);
     shuffleCount++;
   }
-});
+};
 
-let blockedCoords;
 function randomSwap(matrix) {
-  const blankCoords = findCoordinatesByNumber(blankNumber, matrix);
-  const validCoords = findValidCoords({
-    blankCoords,
-    matrix,
-    blockedCoords,
-  });
-
-  const swapCoords = validCoords[
-    Math.floor(Math.random() * validCoords.length)
-  ];
-
-  swapButtons(blankCoords, swapCoords, matrix);
-  blockedCoords = blankCoords
+  const emptyCoords = findCoords(diceAmount, matrix);
+  const rightCoords = findRightCoords(emptyCoords, matrix, falseCoords);
+  const swapCoords = rightCoords[Math.floor(Math.random() * rightCoords.length)];
+  swapDice(emptyCoords, swapCoords, matrix);
+  falseCoords = emptyCoords;
 }
 
-function findValidCoords({blankCoords, matrix, blockedCoords}) {
-  const validCoords = [];
+function findRightCoords(emptyCoords, matrix, falseCoords) {
+  const rightCoords = [];
   for (let y = 0; y < matrix.length; y++) {
     for (let x = 0; x < matrix[y].length; x++) {
-      if(isValidForSwap({x, y}, blankCoords)) {
-        if(!blockedCoords || !(blockedCoords.x == x && blockedCoords.y == y)) {
-          validCoords.push({x, y})
+      if(isValidSwap({x, y}, emptyCoords)) {
+        if(!falseCoords || !(falseCoords.x == x && falseCoords.y == y)) {
+          rightCoords.push({x, y})
         }
       }
     }
   }
-  return validCoords;
+  return rightCoords;
 }
 
 // Shift
 
-fifteen.addEventListener("click", e => {
+fifteen.onclick = (e) => {
   let buttonNode = e.target.closest("button");
   if (!buttonNode) {
     return;
   }
 
   const buttonNumber = +(buttonNode.dataset.matrixId);
-  const buttonCoords = findCoordinatesByNumber(buttonNumber, matrix);
-  const blankCoords = findCoordinatesByNumber(blankNumber, matrix);
-  let isValid = isValidForSwap(buttonCoords, blankCoords);
+  const diceCoords = findCoords(buttonNumber, matrix);
+  const emptyCoords = findCoords(diceAmount, matrix);
+  let isRight = isValidSwap(diceCoords, emptyCoords);
 
-  if (isValid) {
-    swapButtons(buttonCoords, blankCoords, matrix);
-    setPositionItems(matrix);
+  if (isRight) {
+    swapDice(diceCoords, emptyCoords, matrix);
+    setPositionDices(matrix);
   }
-});
+};
 
-function findCoordinatesByNumber(num, matrix) {
+function findCoords(num, matrix) {
   for (let y = 0; y < matrix.length; y++) {
     for (let x = 0; x < matrix[y].length; x++) {
       if(matrix[y][x] == num) {
@@ -161,15 +146,14 @@ function findCoordinatesByNumber(num, matrix) {
   }
 }
 
-function isValidForSwap(buttonCoords, blankCoords) {
-  const diffX = Math.abs(buttonCoords.x - blankCoords.x);
-  const diffY = Math.abs(buttonCoords.y - blankCoords.y);
+function isValidSwap(diceCoords, emptyCoords) {
+  const coordX = Math.abs(diceCoords.x - emptyCoords.x);
+  const coordY = Math.abs(diceCoords.y - emptyCoords.y);
 
-  return (diffX == 1 && buttonCoords.y == blankCoords.y) || (diffY == 1 && buttonCoords.x == blankCoords.x);
+  return (coordX == 1 && diceCoords.y == emptyCoords.y) || (coordY == 1 && diceCoords.x == emptyCoords.x);
 }
 
-function swapButtons(buttonCoords, blankCoords, matrix) {
-  let tempCoords = matrix[buttonCoords.y][buttonCoords.x];
-  matrix[buttonCoords.y][buttonCoords.x] = matrix[blankCoords.y][blankCoords.x];
-  matrix[blankCoords.y][blankCoords.x] = tempCoords;
+function swapDice(diceCoords, emptyCoords, matrix) {
+  [matrix[diceCoords.y][diceCoords.x], matrix[emptyCoords.y][emptyCoords.x]] =
+  [matrix[emptyCoords.y][emptyCoords.x], matrix[diceCoords.y][diceCoords.x]]
 }
