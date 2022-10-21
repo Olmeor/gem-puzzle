@@ -51,9 +51,10 @@ h1 {
   justify-content: center;
   width: 85%;
   height: 85%;
-  box-shadow: inset 0 0 0 2px blue;
+  /* box-shadow: inset 0 0 0 2px blue; */
   margin: 8%;
-  font-size: 2rem;
+  /* font-size: 2rem; */
+  border: solid 2px blue;
 }
 
 .button {

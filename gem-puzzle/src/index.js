@@ -33,6 +33,7 @@ function initLayout(diceAmount) {
 function initDices() {
   const values = new Array(diceAmount).fill(0).map((item, index) => index + 1);
   const fifteen = document.querySelector('.fifteen');
+  const wrapper = document.querySelector('.wrapper');
   let arr = [];
   fifteen.innerHTML = '';
 
@@ -47,9 +48,54 @@ function initDices() {
   }
 
   const diceNodes = document.querySelectorAll(".dice");
+
   for (let i = 0; i < diceAmount; i++) {
-    diceNodes[i].style.width= `${100 / countSide}%`;
-    diceNodes[i].style.height= `${100 / countSide}%`;
+    diceNodes[i].style.width = `${100 / countSide}%`;
+    diceNodes[i].style.height = `${100 / countSide}%`;
+  }
+
+  if (innerWidth >= 768 && diceAmount > 36) {
+    for (let i = 0; i < diceAmount; i++) {
+      diceNodes[i].style.fontSize = '2rem'
+    }
+  } else if (innerWidth >= 768 && diceAmount < 25) {
+    for (let i = 0; i < diceAmount; i++) {
+      diceNodes[i].style.fontSize = '4rem'
+    }
+  } else if (innerWidth >= 768 && diceAmount >= 25 && diceAmount <= 36) {
+    for (let i = 0; i < diceAmount; i++) {
+      diceNodes[i].style.fontSize = '3rem'
+    }
+  } else if (innerWidth > 400 && innerWidth < 768 && diceAmount > 36) {
+    wrapper.style.padding = '2rem 10vw';
+    for (let i = 0; i < diceAmount; i++) {
+      diceNodes[i].style.fontSize = '1rem'
+    }
+  } else if (innerWidth > 400 && innerWidth < 768 && diceAmount < 25) {
+    wrapper.style.padding = '2rem 10vw';
+    for (let i = 0; i < diceAmount; i++) {
+      diceNodes[i].style.fontSize = '3rem'
+    }
+  } else if (innerWidth > 400 && innerWidth < 768 && diceAmount >= 25 && diceAmount <= 36) {
+    wrapper.style.padding = '2rem 10vw';
+    for (let i = 0; i < diceAmount; i++) {
+      diceNodes[i].style.fontSize = '2rem'
+    }
+  } else if (innerWidth <= 400 && diceAmount > 36) {
+    wrapper.style.padding = '2rem 5vw';
+    for (let i = 0; i < diceAmount; i++) {
+      diceNodes[i].style.fontSize = '1rem'
+    }
+  } else if (innerWidth <= 400 && diceAmount < 25) {
+    wrapper.style.padding = '2rem 5vw';
+    for (let i = 0; i < diceAmount; i++) {
+      diceNodes[i].style.fontSize = '2rem'
+    }
+  } else if (innerWidth <= 400 && diceAmount >= 25 && diceAmount <= 36) {
+    wrapper.style.padding = '2rem 5vw';
+    for (let i = 0; i < diceAmount; i++) {
+      diceNodes[i].style.fontSize = '1.5rem'
+    }
   }
 }
 
@@ -129,7 +175,6 @@ let falseCoords;
 document.getElementById("shuffle").onclick = shuffleDice;
 
 function shuffleDice() {
-  // const maxShuffleCount = diceAmount ** 3;
   const maxShuffleCount = 2000;
   let shuffleCount = 0;
   while (shuffleCount < maxShuffleCount) {
