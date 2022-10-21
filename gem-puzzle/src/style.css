@@ -83,3 +83,8 @@ h1 {
   text-shadow: 1px 1px 2px blue;
   margin-bottom: 1rem;
 }
+
+.size {
+  margin-right: -3px;
+  margin-left: 5px;
+}

@@ -33,7 +33,6 @@ function initLayout(diceAmount) {
 function initDices() {
   const values = new Array(diceAmount).fill(0).map((item, index) => index + 1);
   const fifteen = document.querySelector('.fifteen');
-  const wrapper = document.querySelector('.wrapper');
   let arr = [];
   fifteen.innerHTML = '';
 
@@ -53,6 +52,11 @@ function initDices() {
     diceNodes[i].style.width = `${100 / countSide}%`;
     diceNodes[i].style.height = `${100 / countSide}%`;
   }
+}
+
+function initFont () {
+  const wrapper = document.querySelector('.wrapper');
+  const diceNodes = document.querySelectorAll(".dice");
 
   if (innerWidth >= 768 && diceAmount > 36) {
     for (let i = 0; i < diceAmount; i++) {
@@ -101,6 +105,7 @@ function initDices() {
 
 initLayout();
 initDices(diceAmount);
+initFont();
 
 let matrix = getMatrix();
 
@@ -147,6 +152,7 @@ const resize = (e) => {
 }
 
 inputArr.forEach(e => e.oninput = resize);
+window.onresize = initFont;
 
 // Init position
 
