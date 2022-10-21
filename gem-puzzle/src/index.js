@@ -10,7 +10,7 @@ function initLayout(diceAmount) {
   document.body.innerHTML =
   `
   <div class="wrapper">
-    <h1>Gem Puzzle</h1>
+    <h1>Mortal Combat Gem Puzzle</h1>
     <div class="fifteen" id="fifteen"></div>
     <div class="size-wrapper"></div>
     <button class="button" id="shuffle">New game</button>
@@ -147,6 +147,7 @@ const resize = (e) => {
       matrix = getMatrix();
       setPositionDices(matrix);
       fifteen.onclick = shiftDice;
+      initFont();
     }
   }
 }
