@@ -39,7 +39,7 @@ function initDices() {
   for (let i = 0; i < values.length; i++) {
     arr[i] =
     `
-    <button class="dice" data-matrix-id="${i + 1}">
+    <button class="dice" data-matrix-id="${i + 1}" draggable="true">
       <span class="diceNumber">${i + 1}</span>
     </button>
     `
@@ -128,7 +128,7 @@ function getMatrix() {
     }
     matrix[y][x] = arr[i];
     x++;
-  }fifteen
+  }
   return matrix;
 }
 
@@ -215,14 +215,15 @@ function findRightCoords(emptyCoords, matrix, falseCoords) {
 // Shift
 
 fifteen.onclick = shiftDice;
-function shiftDice(e) {
-  let buttonNode = e.target.closest("button");
 
-  if (!buttonNode) {
+function shiftDice(e) {
+  let dice = e.target.closest("button");
+
+  if (!dice) {
     return;
   }
 
-  const buttonNumber = +(buttonNode.dataset.matrixId);
+  const buttonNumber = +(dice.dataset.matrixId);
   const diceCoords = findCoords(buttonNumber, matrix);
   const emptyCoords = findCoords(diceAmount, matrix);
   let isRight = isValidSwap(diceCoords, emptyCoords);
@@ -231,7 +232,7 @@ function shiftDice(e) {
     swapDice(diceCoords, emptyCoords, matrix);
     setPositionDices(matrix);
   }
-};
+}
 
 function findCoords(num, matrix) {
   for (let y = 0; y < matrix.length; y++) {
@@ -254,3 +255,73 @@ function swapDice(diceCoords, emptyCoords, matrix) {
   [matrix[diceCoords.y][diceCoords.x], matrix[emptyCoords.y][emptyCoords.x]] =
   [matrix[emptyCoords.y][emptyCoords.x], matrix[diceCoords.y][diceCoords.x]]
 }
+
+// Drag-n-Drop
+
+fifteen.ondragover = allowDrop;
+
+  function allowDrop(e) {
+  e.preventDefault();
+}
+
+fifteen.ondragstart = dragStart;
+
+function dragStart(e) {
+  let dice = e.target.closest("button");
+  const buttonNumber = +(dice.dataset.matrixId);
+
+  if (!dice) {
+    return;
+  }
+
+  e.dataTransfer.setData('id', buttonNumber);
+}
+
+fifteen.ondrop = dragEnd;
+
+function dragEnd(e) {
+  let diceId = e.dataTransfer.getData('id')
+  const buttonNumber = +diceId;
+  const diceCoords = findCoords(buttonNumber, matrix);
+  const emptyCoords = findCoords(diceAmount, matrix);
+  let isRight = isValidSwap(diceCoords, emptyCoords);
+
+  if (isRight) {
+    swapDice(diceCoords, emptyCoords, matrix);
+    setPositionDices(matrix);
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// const dice = document.querySelectorAll(".dice");
+// const wrapper = document.querySelector('.wrapper');
+
+// dice.addEventListener('dragstart', dragStart);
+// dice.addEventListener('dragend', dragEnd);
+
+// function dragStart(e) {
+//   // let cell = e.target.id;
+//   e.dataTransfer.setData('id',e.target.id)
+// }
+
+// function dragEnd(e) {
+//   let btn = e.target.id;
+//   let elemCellDragStart = document.getElementById(btn);
+// }
+
+// wrapper.addEventListener('dragover', (e) => {
+//   e.preventDefault();
+// })
