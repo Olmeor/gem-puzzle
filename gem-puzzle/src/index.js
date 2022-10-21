@@ -3,10 +3,10 @@ import './style.css'
 
 // Init field
 
-let countSide = 3;
+let countSide = 4;
 let diceAmount = countSide ** 2;
 
-function initLayout (diceAmount) {
+function initLayout(diceAmount) {
   document.body.innerHTML =
   `
   <div class="wrapper">
@@ -17,10 +17,24 @@ function initLayout (diceAmount) {
   </div>
   `;
 
+  const size = document.querySelector('.size-wrapper');
+
+  for (let i = 3; i <= 8; i++) {
+    size.innerHTML +=
+    `
+    <div>
+      <input type="radio" class="size" id="size" name="size" value="${i}"/>
+      <label for="${i}x${i}">${i}x${i}</label>
+    </div>
+    `
+  }
+}
+
+function initDices() {
   const values = new Array(diceAmount).fill(0).map((item, index) => index + 1);
   const fifteen = document.querySelector('.fifteen');
-  const size = document.querySelector('.size-wrapper');
   let arr = [];
+  fifteen.innerHTML = '';
 
   for (let i = 0; i < values.length; i++) {
     arr[i] =
@@ -32,16 +46,6 @@ function initLayout (diceAmount) {
     fifteen.innerHTML += arr[i];
   }
 
-  for (let i = 3; i <= 8; i++) {
-    size.innerHTML +=
-    `
-    <div>
-      <input type="radio" id="${i}x${i}" name="size" value="${i}"/>
-      <label for="${i}x${i}">${i}x${i}</label>
-    </div>
-    `
-  }
-
   const diceNodes = document.querySelectorAll(".dice");
   for (let i = 0; i < diceAmount; i++) {
     diceNodes[i].style.width= `${100 / countSide}%`;
@@ -49,15 +53,16 @@ function initLayout (diceAmount) {
   }
 }
 
-initLayout (diceAmount);
+initLayout();
+initDices(diceAmount);
 
-const diceNodes = document.querySelectorAll(".dice");
-const diceArray = Array.from(diceNodes);
-diceArray[diceAmount - 1].style.display = "none";
+let matrix = getMatrix();
 
-let matrix = getMatrix(diceArray.map(e => +(e.dataset.matrixId)));
-
-function getMatrix(arr) {
+function getMatrix() {
+  const diceNodes = document.querySelectorAll(".dice");
+  const diceArray = Array.from(diceNodes);
+  diceArray[diceAmount - 1].style.display = "none";
+  let arr = diceArray.map(e => +(e.dataset.matrixId))
 
   let matrix = [];
   for (let i = 0; i < countSide; i++) {
@@ -72,13 +77,38 @@ function getMatrix(arr) {
     }
     matrix[y][x] = arr[i];
     x++;
-  }
+  }fifteen
   return matrix;
 }
+
+// Resize
+
+const inputArr = document.querySelectorAll('.size');
+inputArr[1].checked = true;
+
+const resize = (e) => {
+  for (let i = 0; i < inputArr.length; i++) {
+    if (inputArr[i].checked ) {
+      inputArr[i].checked = true;
+      countSide = +inputArr[i].value;
+      diceAmount = countSide ** 2;
+      initDices(diceAmount);
+      matrix = getMatrix();
+      setPositionDices(matrix);
+      fifteen.onclick = shiftDice;
+    }
+  }
+}
+
+inputArr.forEach(e => e.oninput = resize);
 
 // Init position
 
 function setPositionDices(matrix) {
+  const diceNodes = document.querySelectorAll(".dice");
+  const diceArray = Array.from(diceNodes);
+  diceArray[diceAmount - 1].style.display = "none";
+
   for (let y = 0; y < matrix.length; y++) {
     for (let x = 0; x < matrix[y].length; x++) {
       setNodeStyles(diceArray[matrix[y][x] - 1], x, y)
@@ -94,10 +124,13 @@ setPositionDices(matrix);
 
 // Shuffle
 
-const maxShuffleCount = diceAmount ** 3;
 let falseCoords;
 
-document.getElementById("shuffle").onclick = () => {
+document.getElementById("shuffle").onclick = shuffleDice;
+
+function shuffleDice() {
+  // const maxShuffleCount = diceAmount ** 3;
+  const maxShuffleCount = 2000;
   let shuffleCount = 0;
   while (shuffleCount < maxShuffleCount) {
     randomSwap(matrix);
@@ -130,8 +163,10 @@ function findRightCoords(emptyCoords, matrix, falseCoords) {
 
 // Shift
 
-fifteen.onclick = (e) => {
+fifteen.onclick = shiftDice;
+function shiftDice(e) {
   let buttonNode = e.target.closest("button");
+
   if (!buttonNode) {
     return;
   }
