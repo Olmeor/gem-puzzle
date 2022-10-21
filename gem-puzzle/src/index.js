@@ -3,7 +3,7 @@ import './style.css'
 
 // Init field
 
-let countSide = 4;
+let countSide = 3;
 let diceAmount = countSide ** 2;
 
 function initLayout (diceAmount) {
@@ -41,6 +41,12 @@ function initLayout (diceAmount) {
     </div>
     `
   }
+
+  const diceNodes = document.querySelectorAll(".dice");
+  for (let i = 0; i < diceAmount; i++) {
+    diceNodes[i].style.width= `${100 / countSide}%`;
+    diceNodes[i].style.height= `${100 / countSide}%`;
+  }
 }
 
 initLayout (diceAmount);
@@ -52,10 +58,15 @@ diceArray[diceAmount - 1].style.display = "none";
 let matrix = getMatrix(diceArray.map(e => +(e.dataset.matrixId)));
 
 function getMatrix(arr) {
-  const matrix = [[], [], [], []];
+
+  let matrix = [];
+  for (let i = 0; i < countSide; i++) {
+    matrix.push([]);
+  }
+
   let x = 0, y = 0;
   for (let i = 0; i < arr.length; i++) {
-    if (x >= 4) {
+    if (x >= countSide) {
       y++;
       x = 0;
     }
@@ -107,8 +118,8 @@ function findRightCoords(emptyCoords, matrix, falseCoords) {
   const rightCoords = [];
   for (let y = 0; y < matrix.length; y++) {
     for (let x = 0; x < matrix[y].length; x++) {
-      if(isValidSwap({x, y}, emptyCoords)) {
-        if(!falseCoords || !(falseCoords.x == x && falseCoords.y == y)) {
+      if (isValidSwap({x, y}, emptyCoords)) {
+        if (!falseCoords || !(falseCoords.x == x && falseCoords.y == y)) {
           rightCoords.push({x, y})
         }
       }
@@ -139,7 +150,7 @@ fifteen.onclick = (e) => {
 function findCoords(num, matrix) {
   for (let y = 0; y < matrix.length; y++) {
     for (let x = 0; x < matrix[y].length; x++) {
-      if(matrix[y][x] == num) {
+      if (matrix[y][x] == num) {
         return {x, y};
       }
     }
