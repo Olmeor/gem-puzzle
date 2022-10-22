@@ -22,7 +22,7 @@ module.exports = ({ development }) => ({
   // entry: {
   //   main: './src/js/index.js',
   // },
-  entry: './src/index.js',
+  entry: './src/js/index.js',
   output: {
     // clean: true,
     path: path.resolve(__dirname, 'dist'),

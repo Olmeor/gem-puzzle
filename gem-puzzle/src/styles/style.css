@@ -15,10 +15,11 @@ h1 {
 .fifteen {
   width: 100%;
   padding-bottom: 100%;
-  background: url('./bg.jpg') no-repeat center;
+  background: url('../images/bg.jpg') no-repeat center;
   background-size: contain;
   margin-bottom: 1.5rem;
   position: relative;
+  opacity: 0.9;
 }
 
 .gameShuffle {
@@ -88,4 +89,8 @@ h1 {
 .size {
   margin-right: -3px;
   margin-left: 5px;
+}
+
+body {
+  accent-color: darkred;
 }
