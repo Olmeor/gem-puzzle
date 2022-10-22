@@ -4,6 +4,7 @@ import '../styles/style.css'
 import { initLayout } from "./init_layout"
 import { initDices } from "./init_dices"
 import { initFont } from "./init_font"
+import { getMatrix } from "./init_matrix"
 import { setPositionDices } from "./init_pos"
 import { shuffleDice } from "./shuffle"
 import { shiftDice } from "./shift"
@@ -12,36 +13,12 @@ import { allowDrop, dragStart, dragEnd } from "./dragover"
 // Init field
 
 export let countSide = 4;
-let diceAmount = countSide ** 2;
 
 initLayout();
 initDices();
 initFont();
 
 export let matrix = getMatrix();
-
-function getMatrix() {
-  const diceNodes = document.querySelectorAll(".dice");
-  const diceArray = Array.from(diceNodes);
-  diceArray[diceAmount - 1].style.display = "none";
-  let arr = diceArray.map(e => +(e.dataset.matrixId))
-
-  let matrix = [];
-  for (let i = 0; i < countSide; i++) {
-    matrix.push([]);
-  }
-
-  let x = 0, y = 0;
-  for (let i = 0; i < arr.length; i++) {
-    if (x >= countSide) {
-      y++;
-      x = 0;
-    }
-    matrix[y][x] = arr[i];
-    x++;
-  }
-  return matrix;
-}
 
 // Init position
 
@@ -68,6 +45,7 @@ inputArr[1].checked = true;
 
 const resize = (e) => {
   for (let i = 0; i < inputArr.length; i++) {
+    let diceAmount = countSide ** 2;
     if (inputArr[i].checked ) {
       inputArr[i].checked = true;
       countSide = +inputArr[i].value;
