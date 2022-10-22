@@ -7,7 +7,7 @@ import { initFont } from "./init_font"
 import { getMatrix } from "./init_matrix"
 import { setPositionDices } from "./init_pos"
 import { shuffleDice } from "./shuffle"
-import { shiftDice, isWon } from "./shift"
+import { shiftDice, isWon, resetCounter, resetGame } from "./shift"
 import { allowDrop, dragStart, dragEnd } from "./dragover"
 import { checkWin } from "./timer"
 
@@ -57,6 +57,8 @@ const resize = (e) => {
       fifteen.onclick = shiftDice;
       initFont();
       checkWin();
+      resetCounter();
+      resetGame();
     }
   }
 }

@@ -1,7 +1,7 @@
 import { countSide, matrix } from "./index";
 import { startTimer, checkWin } from "./timer";
 import { setPositionDices } from "./init_pos"
-import { findCoords, isValidSwap, swapDice, resetCounter } from "./shift";
+import { findCoords, isValidSwap, swapDice, resetCounter, startGame } from "./shift";
 
 let falseCoords;
 
@@ -17,6 +17,7 @@ export function shuffleDice() {
   checkWin();
   startTimer(false);
   resetCounter();
+  startGame();
 };
 
 function randomSwap(matrix) {

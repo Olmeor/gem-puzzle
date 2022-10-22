@@ -29,3 +29,4 @@ export function checkWin() {
     document.querySelector('.timerMsg').classList.add('hide');
   }
 }
+
