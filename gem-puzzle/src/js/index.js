@@ -9,6 +9,7 @@ import { setPositionDices } from "./init_pos"
 import { shuffleDice } from "./shuffle"
 import { shiftDice, isWon } from "./shift"
 import { allowDrop, dragStart, dragEnd } from "./dragover"
+import { checkWin } from "./timer"
 
 // Init field
 
@@ -55,6 +56,7 @@ const resize = (e) => {
       setPositionDices(matrix);
       fifteen.onclick = shiftDice;
       initFont();
+      checkWin();
     }
   }
 }

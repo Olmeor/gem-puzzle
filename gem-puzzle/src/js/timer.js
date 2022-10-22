@@ -6,7 +6,7 @@ export function startTimer(started) {
     started = true;
     let start = new Date().getTime();
     let elapsed = '0.0';
-    let timer = document.querySelector('.timer span');
+    let timer = document.querySelector('.seconds');
     timerRef = setInterval(function () {
       let time = new Date().getTime() - start;
       elapsed = Math.floor(time / 100) / 10;
@@ -21,7 +21,8 @@ export function startTimer(started) {
 export function checkWin() {
   if (timerRef !== undefined) {
     clearInterval(timerRef);
-    document.querySelector('h2 span').textContent = '0';
+    document.querySelector('.seconds').textContent = '0';
+    document.querySelector('.moves').textContent = '0';
   }
 
   if (!document.querySelector('.timerMsg').classList.contains('hide')) {

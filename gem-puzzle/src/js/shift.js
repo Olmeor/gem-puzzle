@@ -2,6 +2,8 @@ import { countSide, matrix } from "./index";
 import { setPositionDices } from "./init_pos"
 import { timerRef } from "./timer";
 
+export let counter = 0;
+
 export function shiftDice(e) {
   let dice = e.target.closest("button");
 
@@ -42,12 +44,21 @@ export function swapDice(diceCoords, emptyCoords, matrix) {
   [matrix[diceCoords.y][diceCoords.x], matrix[emptyCoords.y][emptyCoords.x]] =
   [matrix[emptyCoords.y][emptyCoords.x], matrix[diceCoords.y][diceCoords.x]]
 
+  if (timerRef) {
+    counter++;
+    console.log(counter);
+    document.querySelector('.moves').textContent = `${counter}`;
+  }
   if (isWon(matrix)) {
     showWin();
+    counter = 0;
   }
 }
 
 function isWon(matrix) {
+  if (!counter) {
+    return false;
+  }
   let diceAmount = countSide ** 2;
   const winArr = new Array(diceAmount).fill(0).map((item, index) => index + 1);
   const flatMatrix = matrix.flat();
@@ -64,4 +75,8 @@ function showWin() {
     document.querySelector('.timerMsg').classList.remove('hide');
     clearInterval(timerRef);
   }, 200);
+}
+
+export function resetCounter() {
+  counter = 0;
 }

@@ -25,6 +25,7 @@ export function initLayout() {
   const timer = document.querySelector('.timer');
   timer.innerHTML =
   `
-  <div class="timerMsg hide">Hooray! You solved the puzzle in</div><span>0</span> seconds
+  <div class="timerMsg hide">Hooray! You solved the puzzle in</div>
+  <span class="seconds">0</span> seconds, <span class="moves">0</span> moves
   `
 }
