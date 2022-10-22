@@ -7,7 +7,7 @@ import { initFont } from "./init_font"
 import { getMatrix } from "./init_matrix"
 import { setPositionDices } from "./init_pos"
 import { shuffleDice } from "./shuffle"
-import { shiftDice } from "./shift"
+import { shiftDice, isWon } from "./shift"
 import { allowDrop, dragStart, dragEnd } from "./dragover"
 
 // Init field
@@ -62,5 +62,6 @@ const resize = (e) => {
 inputArr.forEach(e => e.oninput = resize);
 window.onresize = initFont;
 
+// Timer
 
 

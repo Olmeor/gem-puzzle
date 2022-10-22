@@ -3,6 +3,7 @@ export function initLayout() {
   `
   <div class="wrapper">
     <h1>Mortal Combat Gem Puzzle</h1>
+    <h2 class="timer"></h2>
     <div class="fifteen" id="fifteen"></div>
     <div class="size-wrapper"></div>
     <button class="button" id="shuffle">New game</button>
@@ -20,4 +21,10 @@ export function initLayout() {
     </div>
     `
   }
+
+  const timer = document.querySelector('.timer');
+  timer.innerHTML =
+  `
+  <div class="timerMsg hide">Hooray! You solved the puzzle in</div><span>0</span> seconds
+  `
 }
