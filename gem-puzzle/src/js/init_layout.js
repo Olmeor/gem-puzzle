@@ -16,7 +16,7 @@ export function initLayout() {
     `
     <div>
       <input type="radio" class="size" id="size" name="size" value="${i}"/>
-      <label for="${i}x${i}">${i}x${i}</label>
+      <label class="label" for="${i}x${i}">${i}x${i}</label>
     </div>
     `
   }

@@ -91,6 +91,10 @@ h1 {
   margin-left: 5px;
 }
 
+.label {
+  font-size: 1.5rem;
+}
+
 body {
   accent-color: darkred;
 }
