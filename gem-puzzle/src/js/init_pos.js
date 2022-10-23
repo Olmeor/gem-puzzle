@@ -1,6 +1,6 @@
 import { countSide, matrix } from "./index";
 
-export function setPositionDices(matrix) {
+export function setPositionDices() {
   let diceAmount = countSide ** 2;
   const diceNodes = document.querySelectorAll(".dice");
   const diceArray = Array.from(diceNodes);

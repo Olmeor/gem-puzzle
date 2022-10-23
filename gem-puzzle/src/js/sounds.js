@@ -1,4 +1,4 @@
-import { _soundInput } from "./index"
+import { _soundInput } from "./resize"
 import { _soundStart } from "./shuffle"
 import { _soundShift, _soundWin } from "./shift"
 import { _soundScore } from "./popup"

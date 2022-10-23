@@ -7,13 +7,13 @@ import { initFont } from "./init_font"
 import { getMatrix } from "./init_matrix"
 import { setPositionDices } from "./init_pos"
 import { shuffleDice } from "./shuffle"
+import { resize } from "./resize"
 import { shiftDice, isWon, resetCounter, resetGame } from "./shift"
 import { allowDrop, dragStart, dragEnd } from "./dragover"
 import { checkWin } from "./timer"
 import { muteAudio } from "./sounds"
 import { openPopup } from "./popup"
 import { save } from "./save"
-import soundInput from "../sounds/input.mp3"
 
 // Init field
 
@@ -24,6 +24,10 @@ initDices();
 initFont();
 
 export let matrix = getMatrix();
+
+export function setMatrix() {
+  matrix = getMatrix();
+}
 
 // Init position
 
@@ -45,28 +49,11 @@ fifteen.ondrop = dragEnd;
 
 // Resize
 
-const inputArr = document.querySelectorAll('.size');
+export const inputArr = document.querySelectorAll('.size');
 inputArr[1].checked = true;
-export let _soundInput = new Audio(soundInput);
 
-const resize = (e) => {
-  for (let i = 0; i < inputArr.length; i++) {
-    let diceAmount = countSide ** 2;
-    if (inputArr[i].checked ) {
-      inputArr[i].checked = true;
-      countSide = +inputArr[i].value;
-      diceAmount = countSide ** 2;
-      initDices(diceAmount);
-      matrix = getMatrix();
-      setPositionDices(matrix);
-      fifteen.onclick = shiftDice;
-      initFont();
-      checkWin();
-      resetCounter();
-      resetGame();
-      _soundInput.play();
-    }
-  }
+export function changeCountSide(check) {
+  countSide = +inputArr[check].value;
 }
 
 inputArr.forEach(e => e.oninput = resize);
