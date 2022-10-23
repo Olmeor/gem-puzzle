@@ -2,8 +2,10 @@ import { countSide, matrix } from "./index";
 import { startTimer, checkWin } from "./timer";
 import { setPositionDices } from "./init_pos"
 import { findCoords, isValidSwap, swapDice, resetCounter, startGame } from "./shift";
+import soundStart from "../sounds/test.mp3"
 
 let falseCoords;
+export let _soundStart = new Audio(soundStart);
 
 export function shuffleDice() {
   const maxShuffleCount = 2000;
@@ -18,6 +20,7 @@ export function shuffleDice() {
   startTimer(false);
   resetCounter();
   startGame();
+  _soundStart.play();
 };
 
 function randomSwap(matrix) {

@@ -1,9 +1,13 @@
 import { countSide, matrix } from "./index";
 import { setPositionDices } from "./init_pos"
 import { timerRef } from "./timer";
+import soundShift from "../sounds/shift.mp3"
+import soundWin from "../sounds/victory.mp3"
 
 export let counter = 0;
 let game = false;
+export let _soundShift = new Audio(soundShift);
+export let _soundWin = new Audio(soundWin);
 
 export function shiftDice(e) {
   let dice = e.target.closest("button");
@@ -21,6 +25,7 @@ export function shiftDice(e) {
   if (isRight) {
     swapDice(diceCoords, emptyCoords, matrix);
     setPositionDices(matrix);
+    _soundShift.play();
   }
 }
 
@@ -53,6 +58,7 @@ export function swapDice(diceCoords, emptyCoords, matrix) {
     showWin();
     resetCounter();
     game = false;
+    _soundWin.play();
   }
 }
 

@@ -10,6 +10,9 @@ import { shuffleDice } from "./shuffle"
 import { shiftDice, isWon, resetCounter, resetGame } from "./shift"
 import { allowDrop, dragStart, dragEnd } from "./dragover"
 import { checkWin } from "./timer"
+import { muteAudio } from "./sounds"
+import { openPopup } from "./popup"
+import soundInput from "../sounds/input.mp3"
 
 // Init field
 
@@ -43,6 +46,7 @@ fifteen.ondrop = dragEnd;
 
 const inputArr = document.querySelectorAll('.size');
 inputArr[1].checked = true;
+export let _soundInput = new Audio(soundInput);
 
 const resize = (e) => {
   for (let i = 0; i < inputArr.length; i++) {
@@ -59,6 +63,7 @@ const resize = (e) => {
       checkWin();
       resetCounter();
       resetGame();
+      _soundInput.play();
     }
   }
 }
@@ -68,4 +73,13 @@ window.onresize = initFont;
 
 // Timer
 
+// Sound
 
+const soundButton = document.querySelector('.sound-button');
+soundButton.onclick = muteAudio;
+
+
+// PopUp
+
+const scoreButton = document.querySelector('.score-button');
+scoreButton.onclick = openPopup;
