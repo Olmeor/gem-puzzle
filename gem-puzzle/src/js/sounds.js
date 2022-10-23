@@ -2,6 +2,7 @@ import { _soundInput } from "./resize"
 import { _soundStart } from "./shuffle"
 import { _soundShift, _soundWin } from "./shift"
 import { _soundScore } from "./popup"
+import { _soundSave } from "./save"
 
 export function muteAudio() {
   const soundButton = document.querySelector('.sound-button');
@@ -12,6 +13,7 @@ export function muteAudio() {
     _soundShift.muted = true;
     _soundWin.muted = true;
     _soundScore.muted = true;
+    _soundSave.muted = true;
   } else {
     soundButton.classList.remove('sound-button_mute');
     _soundInput.muted = false;
@@ -19,6 +21,7 @@ export function muteAudio() {
     _soundShift.muted = false;
     _soundWin.muted = false;
     _soundScore.muted = false;
+    _soundSave.muted = false;
   }
 }
 

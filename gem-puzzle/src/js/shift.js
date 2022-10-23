@@ -4,7 +4,7 @@ import { timerRef } from "./timer";
 import soundShift from "../sounds/shift.mp3"
 import soundWin from "../sounds/victory.mp3"
 
-export let counter = 0;
+export let counter = (localStorage.getItem("counter")) ? +loadCounterFromLS() :0;
 let game = false;
 export let _soundShift = new Audio(soundShift);
 export let _soundWin = new Audio(soundWin);
@@ -94,4 +94,11 @@ export function startGame() {
 
 export function resetGame() {
   game = false;
+}
+
+function loadCounterFromLS() {
+  document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector('.moves').textContent = `${localStorage.getItem("counter")}`;
+    return localStorage.getItem("counter");
+  });
 }

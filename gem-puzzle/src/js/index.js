@@ -8,7 +8,7 @@ import { getMatrix } from "./init_matrix"
 import { setPositionDices } from "./init_pos"
 import { shuffleDice } from "./shuffle"
 import { resize } from "./resize"
-import { shiftDice, isWon, resetCounter, resetGame } from "./shift"
+import { shiftDice, isWon, resetCounter, resetGame, counter } from "./shift"
 import { allowDrop, dragStart, dragEnd } from "./dragover"
 import { checkWin } from "./timer"
 import { muteAudio } from "./sounds"
@@ -19,11 +19,13 @@ import { save } from "./save"
 
 export let countSide = 4;
 
+          // export let countSide = (localStorage.getItem("counter")) ?
+          // loadCounterFromLS() : 4;
 initLayout();
 initDices();
 initFont();
 
-export let matrix = getMatrix();
+export let matrix = (localStorage.getItem("matrix")) ? loadMatrixFromLS() : getMatrix();
 
 export function setMatrix() {
   matrix = getMatrix();
@@ -75,4 +77,19 @@ scoreButton.onclick = openPopup;
 // Save
 
 const saveButton = document.querySelector('.save-button');
-saveButton.onclick = save;
+saveButton.onclick = () => {
+  save();
+  saveToLS();
+};
+
+function saveToLS() {
+  localStorage.setItem("matrix", JSON.stringify(matrix));
+  localStorage.setItem("counter", counter);
+  let elapsed = document.querySelector('.seconds').textContent;
+  localStorage.setItem("elapsed", elapsed);
+}
+
+function loadMatrixFromLS() {
+  return JSON.parse(localStorage.getItem("matrix"));
+}
+
