@@ -12,6 +12,7 @@ import { allowDrop, dragStart, dragEnd } from "./dragover"
 import { checkWin } from "./timer"
 import { muteAudio } from "./sounds"
 import { openPopup } from "./popup"
+import { save } from "./save"
 import soundInput from "../sounds/input.mp3"
 
 // Init field
@@ -83,3 +84,8 @@ soundButton.onclick = muteAudio;
 
 const scoreButton = document.querySelector('.score-button');
 scoreButton.onclick = openPopup;
+
+// Save
+
+const saveButton = document.querySelector('.save-button');
+saveButton.onclick = save;

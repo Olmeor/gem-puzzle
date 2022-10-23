@@ -69,7 +69,7 @@ h2 {
   color: goldenrod;
   background: black;
   font-size: 1rem;
-  padding: .5rem 1.5em;
+  padding: .5rem .5em;
   border-radius: 10px;
   box-shadow: 5px 5px 2px #999;
   transition: 0.3s;
@@ -119,6 +119,7 @@ body {
   height: 45px;
   background: url('../images/volume.svg') no-repeat center;
   background-size: contain;
+  transition: 0.3s;
 }
 
 .sound-button_mute {
@@ -126,9 +127,26 @@ body {
   background-size: contain;
 }
 
+.save-button {
+  margin-top: 2px;
+  width: 45px;
+  height: 43px;
+  background: url('../images/save.svg') no-repeat center;
+  background-size: contain;
+  transition: 0.3s;
+}
+
 .score-button {
   width: 45px;
   height: 45px;
   background: url('../images/score.svg') no-repeat center;
   background-size: contain;
+  transition: 0.3s;
+}
+
+.sound-button:hover,
+.save-button:hover,
+.score-button:hover {
+  transform: scale(1.1);
+  transition: 0.3s;
 }

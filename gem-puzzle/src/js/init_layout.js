@@ -2,13 +2,14 @@ export function initLayout() {
   document.body.innerHTML =
   `
   <div class="wrapper">
-    <h1>Mortal Kombat Gem Puzzle</h1>
+    <h1>Mortal Puzzle</h1>
     <h2 class="timer"></h2>
     <div class="fifteen" id="fifteen"></div>
     <div class="size-wrapper"></div>
     <div class="button-wrapper">
       <button class="sound-button"></button>
       <button class="button" id="shuffle">New game</button>
+      <button class="save-button"></button>
       <button class="score-button"></button>
     </div>
   </div>
