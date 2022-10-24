@@ -12,7 +12,7 @@ import { shiftDice, isWon, resetCounter, resetGame, counter } from "./shift"
 import { allowDrop, dragStart, dragEnd } from "./dragover"
 import { checkWin } from "./timer"
 import { muteAudio } from "./sounds"
-import { openScore, closeScore, setTabScore, initArrScore } from "./popup"
+import { openScore, closeScore, initTabScore } from "./popup"
 import { save } from "./save"
 
 // Init field
@@ -78,9 +78,7 @@ soundButton.onclick = muteAudio;
 const scoreButton = document.querySelector('.score-button');
 const tabClose = document.querySelector('.close');
 scoreButton.onclick = openScore;
-initArrScore();
-setTabScore();
-
+initTabScore();
 
 // Save
 
@@ -103,3 +101,11 @@ function loadMatrixFromLS() {
   return JSON.parse(localStorage.getItem("matrix"));
 }
 
+console.log(
+`
+A 2x2 field has been added for ease verification.
+To check the solvability, there is a checker https://jerubrin.github.io/puzzle-checker/build/.
+If the layout is buggy, you need to refresh the browser page.
+I expect 120/120.
+Google Translate forever!
+`);

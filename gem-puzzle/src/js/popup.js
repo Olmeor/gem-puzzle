@@ -4,7 +4,16 @@ import soundScore from "../sounds/excellent.mp3"
 
 export let _soundScore = new Audio(soundScore);
 
-export let arrScore = [];
+let arrScore = (localStorage.getItem("score")) ? loadScore() : [];
+
+export function initTabScore() {
+  if (localStorage.getItem("score")) {
+    loadScore();
+  } else {
+    initArrScore();
+  }
+  setTabScore();
+}
 
 export function initArrScore() {
   for (let i = 0; i < 10; i++) {
@@ -52,6 +61,7 @@ export function addTabScore() {
     sortByTime();
     setTabScore();
   }
+  saveScore();
 }
 
 function addWinPos(winPos) {
@@ -123,3 +133,11 @@ function closeScore() {
   tabClose.onclick = null;
 }
 
+function saveScore() {
+  // localStorage.removeItem("score");
+  localStorage.setItem("score", JSON.stringify(arrScore));
+}
+
+export function loadScore() {
+  return JSON.parse(localStorage.getItem("score"));
+}

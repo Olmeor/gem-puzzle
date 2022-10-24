@@ -1,6 +1,6 @@
 import { countSide, matrix } from "./index";
 import { setPositionDices } from "./init_pos"
-import { timerRef, elapsed, startTimer, duration } from "./timer";
+import { timerRef, past, startTimer, duration } from "./timer";
 import { addTabScore } from "./popup";
 import soundShift from "../sounds/shift.mp3"
 import soundWin from "../sounds/victory.mp3"

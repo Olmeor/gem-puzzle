@@ -1,6 +1,6 @@
 let started = false;
 export let timerRef = undefined;
-export let elapsed = '0.0';
+export let past = '0.0';
 export let duration = (localStorage.getItem("duration")) ? loadDurationFromLS() : '0.0';
 
 export function startTimer(started) {
@@ -10,11 +10,11 @@ export function startTimer(started) {
     let timer = document.querySelector('.seconds');
     timerRef = setInterval(function () {
       let time = new Date().getTime() - start + +duration * 1000;
-      elapsed = Math.floor(time / 100) / 10;
-      if (Math.round(elapsed) == elapsed) {
-        elapsed += '.0';
+      past = Math.floor(time / 100) / 10;
+      if (Math.round(past) == past) {
+        past += '.0';
       }
-      timer.innerText = elapsed;
+      timer.innerText = past;
     }, 100);
   }
 }

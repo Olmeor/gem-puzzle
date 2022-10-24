@@ -191,13 +191,12 @@ body {
 
 .dice-wrapper {
   position: relative;
-  /* display: flex;
-  justify-content: center; */
+
 }
 
 .tab-score {
   position: absolute;
-  /* width: calc(100% - 40px); */
+
   width: 100%;
   max-width: 270px;
   height: auto;
@@ -261,7 +260,7 @@ body {
   }
 }
 
-@media screen and (max-width: 390px) {
+@media screen and (max-width: 400px) {
 
   .score-wrapper {
     font-size: 0.8rem;
