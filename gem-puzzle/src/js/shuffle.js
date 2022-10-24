@@ -1,5 +1,5 @@
 import { countSide, matrix } from "./index";
-import { startTimer, checkWin } from "./timer";
+import { startTimer, checkWin, resetDuration } from "./timer";
 import { setPositionDices } from "./init_pos"
 import { findCoords, isValidSwap, swapDice, resetCounter, startGame } from "./shift";
 import soundStart from "../sounds/test.mp3"
@@ -19,6 +19,7 @@ export function shuffleDice() {
   checkWin();
   startTimer(false);
   resetCounter();
+  resetDuration();
   startGame();
   _soundStart.play();
 };

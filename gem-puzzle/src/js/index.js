@@ -17,10 +17,9 @@ import { save } from "./save"
 
 // Init field
 
-export let countSide = 4;
+// export let countSide = 4;
+export let countSide = (localStorage.getItem("countSide")) ? localStorage.getItem("countSide") : 4;
 
-          // export let countSide = (localStorage.getItem("counter")) ?
-          // loadCounterFromLS() : 4;
 initLayout();
 initDices();
 initFont();
@@ -84,9 +83,10 @@ saveButton.onclick = () => {
 
 function saveToLS() {
   localStorage.setItem("matrix", JSON.stringify(matrix));
+  localStorage.setItem("countSide", countSide);
   localStorage.setItem("counter", counter);
-  let elapsed = document.querySelector('.seconds').textContent;
-  localStorage.setItem("elapsed", elapsed);
+  let duration = document.querySelector('.seconds').textContent;
+  localStorage.setItem("duration", duration);
 }
 
 function loadMatrixFromLS() {

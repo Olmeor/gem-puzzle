@@ -1,10 +1,11 @@
 import { countSide, matrix } from "./index";
 import { setPositionDices } from "./init_pos"
-import { timerRef } from "./timer";
+import { timerRef, elapsed, startTimer, duration } from "./timer";
 import soundShift from "../sounds/shift.mp3"
 import soundWin from "../sounds/victory.mp3"
 
 export let counter = (localStorage.getItem("counter")) ? +loadCounterFromLS() :0;
+
 let game = false;
 export let _soundShift = new Audio(soundShift);
 export let _soundWin = new Audio(soundWin);
@@ -50,10 +51,16 @@ export function swapDice(diceCoords, emptyCoords, matrix) {
   [matrix[diceCoords.y][diceCoords.x], matrix[emptyCoords.y][emptyCoords.x]] =
   [matrix[emptyCoords.y][emptyCoords.x], matrix[diceCoords.y][diceCoords.x]]
 
+  if (counter == localStorage.getItem("counter") &&
+      duration == (localStorage.getItem("duration"))) {
+        startTimer();
+  }
+
   if (timerRef) {
     counter++;
     document.querySelector('.moves').textContent = `${counter}`;
   }
+
   if (isWon(matrix) && counter && game) {
     showWin();
     resetCounter();
@@ -63,9 +70,6 @@ export function swapDice(diceCoords, emptyCoords, matrix) {
 }
 
 function isWon(matrix) {
-  // if (!counter && timerRef) {
-  //   return false;
-  // }
   let diceAmount = countSide ** 2;
   const winArr = new Array(diceAmount).fill(0).map((item, index) => index + 1);
   const flatMatrix = matrix.flat();
@@ -86,6 +90,7 @@ function showWin() {
 
 export function resetCounter() {
   counter = 0;
+  document.querySelector('.moves').textContent = '0';
 }
 
 export function startGame() {
@@ -99,6 +104,6 @@ export function resetGame() {
 function loadCounterFromLS() {
   document.addEventListener("DOMContentLoaded", () => {
     document.querySelector('.moves').textContent = `${localStorage.getItem("counter")}`;
-    return localStorage.getItem("counter");
   });
+  return localStorage.getItem("counter");
 }

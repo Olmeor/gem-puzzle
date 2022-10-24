@@ -1,15 +1,15 @@
 let started = false;
 export let timerRef = undefined;
-let elapsed = (localStorage.getItem("elapsed")) ? loadElapsedFromLS() : '0.0';
+export let elapsed = '0.0';
+export let duration = (localStorage.getItem("duration")) ? loadDurationFromLS() : '0.0';
 
 export function startTimer(started) {
   if (!started) {
     started = true;
     let start = new Date().getTime();
-    // let elapsed = (localStorage.getItem("elapsed")) ? loadElapsedFromLS() : '0.0';
     let timer = document.querySelector('.seconds');
     timerRef = setInterval(function () {
-      let time = new Date().getTime() - start;
+      let time = new Date().getTime() - start + +duration * 1000;
       elapsed = Math.floor(time / 100) / 10;
       if (Math.round(elapsed) == elapsed) {
         elapsed += '.0';
@@ -31,10 +31,13 @@ export function checkWin() {
   }
 }
 
-function loadElapsedFromLS() {
+function loadDurationFromLS() {
   document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector('.seconds').textContent = `${localStorage.getItem("elapsed")}`;
-    console.log(localStorage.getItem("elapsed"));
-    return localStorage.getItem("elapsed");
+    document.querySelector('.seconds').textContent = `${localStorage.getItem("duration")}`;
   });
+  return localStorage.getItem("duration");
+}
+
+export function resetDuration() {
+  duration = '0.0';
 }
