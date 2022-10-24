@@ -8,7 +8,7 @@ import { getMatrix } from "./init_matrix"
 import { setPositionDices } from "./init_pos"
 import { shuffleDice } from "./shuffle"
 import { resize } from "./resize"
-import { shiftDice, isWon, resetCounter, resetGame, counter } from "./shift"
+import { shiftDice, isWon, resetCounter, resetGame, counter, game } from "./shift"
 import { allowDrop, dragStart, dragEnd } from "./dragover"
 import { checkWin } from "./timer"
 import { muteAudio } from "./sounds"
@@ -17,7 +17,7 @@ import { save } from "./save"
 
 // Init field
 
-// export let countSide = 4;
+
 export let countSide = (localStorage.getItem("countSide")) ? localStorage.getItem("countSide") : 4;
 
 initLayout();
@@ -50,7 +50,7 @@ fifteen.ondrop = dragEnd;
 
 // Resize
 
-let checkedInput = (localStorage.getItem("checkedInput")) ? +localStorage.getItem("checkedInput") : +2;
+let checkedInput = (localStorage.getItem("checkedInput")) ? +localStorage.getItem("checkedInput") : +1;
 export const inputArr = document.querySelectorAll('.size');
 inputArr[checkedInput].checked = true;
 
@@ -92,6 +92,7 @@ function saveToLS() {
   localStorage.setItem("matrix", JSON.stringify(matrix));
   localStorage.setItem("countSide", countSide);
   localStorage.setItem("counter", counter);
+  localStorage.setItem("game", game);
   let duration = document.querySelector('.seconds').textContent;
   localStorage.setItem("duration", duration);
   localStorage.setItem("checkedInput", checkedInput);
@@ -100,12 +101,3 @@ function saveToLS() {
 function loadMatrixFromLS() {
   return JSON.parse(localStorage.getItem("matrix"));
 }
-
-console.log(
-`
-A 2x2 field has been added for ease verification.
-To check the solvability, there is a checker https://jerubrin.github.io/puzzle-checker/build/.
-If the layout is buggy, you need to refresh the browser page.
-I expect 120/120.
-Google Translate forever!
-`);

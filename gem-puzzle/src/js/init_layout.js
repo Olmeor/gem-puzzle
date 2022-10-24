@@ -21,7 +21,7 @@ export function initLayout() {
 
   const size = document.querySelector('.size-wrapper');
 
-  for (let i = 2; i <= 8; i++) {
+  for (let i = 3; i <= 8; i++) {
     size.innerHTML +=
     `
     <div>

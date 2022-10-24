@@ -6,8 +6,8 @@ import soundShift from "../sounds/shift.mp3"
 import soundWin from "../sounds/victory.mp3"
 
 export let counter = (localStorage.getItem("counter")) ? +loadCounterFromLS() :0;
-
-let game = false;
+export let game = (localStorage.getItem("game")) ? true : false;
+// export let game = false;
 export let _soundShift = new Audio(soundShift);
 export let _soundWin = new Audio(soundWin);
 
@@ -62,6 +62,7 @@ export function swapDice(diceCoords, emptyCoords, matrix) {
     document.querySelector('.moves').textContent = `${counter}`;
   }
 
+  console.log(isWon(matrix) , counter , game)
   if (isWon(matrix) && counter && game) {
     showWin();
     // resetCounter();
@@ -71,7 +72,7 @@ export function swapDice(diceCoords, emptyCoords, matrix) {
   }
 }
 
-function isWon(matrix) {
+export function isWon(matrix) {
   let diceAmount = countSide ** 2;
   const winArr = new Array(diceAmount).fill(0).map((item, index) => index + 1);
   const flatMatrix = matrix.flat();

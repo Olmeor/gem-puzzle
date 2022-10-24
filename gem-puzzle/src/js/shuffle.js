@@ -16,6 +16,11 @@ export function shuffleDice() {
     shuffleCount++;
   }
 
+  // if(isWon(matrix)) {
+  //   randomSwap(matrix);
+  //   setPositionDices(matrix);
+  // }
+
   checkWin();
   startTimer(false);
   resetCounter();
