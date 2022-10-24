@@ -12,7 +12,7 @@ import { shiftDice, isWon, resetCounter, resetGame, counter } from "./shift"
 import { allowDrop, dragStart, dragEnd } from "./dragover"
 import { checkWin } from "./timer"
 import { muteAudio } from "./sounds"
-import { openPopup } from "./popup"
+import { openScore, closeScore } from "./popup"
 import { save } from "./save"
 
 // Init field
@@ -50,7 +50,7 @@ fifteen.ondrop = dragEnd;
 
 // Resize
 
-let checkedInput = (localStorage.getItem("checkedInput")) ? +localStorage.getItem("checkedInput") : +1;
+let checkedInput = (localStorage.getItem("checkedInput")) ? +localStorage.getItem("checkedInput") : +2;
 export const inputArr = document.querySelectorAll('.size');
 inputArr[checkedInput].checked = true;
 
@@ -76,7 +76,9 @@ soundButton.onclick = muteAudio;
 // PopUp
 
 const scoreButton = document.querySelector('.score-button');
-scoreButton.onclick = openPopup;
+const tabClose = document.querySelector('.close');
+scoreButton.onclick = openScore;
+
 
 // Save
 

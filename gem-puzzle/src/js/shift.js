@@ -63,7 +63,7 @@ export function swapDice(diceCoords, emptyCoords, matrix) {
 
   if (isWon(matrix) && counter && game) {
     showWin();
-    resetCounter();
+    // resetCounter();
     game = false;
     _soundWin.play();
   }

@@ -38,18 +38,24 @@ export function initFont () {
     for (let i = 0; i < diceAmount; i++) {
       diceNodes[i].style.fontSize = '1rem'
     }
+    for (let i = 0; i < labelText.length; i++) {
+      labelText[i].style.fontSize = '1rem';
+    }
   } else if (innerWidth <= 400 && diceAmount < 25) {
     wrapper.style.padding = '2rem 5vw';
     for (let i = 0; i < diceAmount; i++) {
       diceNodes[i].style.fontSize = '2rem'
     }
     for (let i = 0; i < labelText.length; i++) {
-      labelText[i].style.fontSize = '1.2rem';
+      labelText[i].style.fontSize = '1rem';
     }
   } else if (innerWidth <= 400 && diceAmount >= 25 && diceAmount <= 36) {
     wrapper.style.padding = '2rem 5vw';
     for (let i = 0; i < diceAmount; i++) {
       diceNodes[i].style.fontSize = '1.5rem'
+    }
+    for (let i = 0; i < labelText.length; i++) {
+      labelText[i].style.fontSize = '1rem';
     }
   }
 }
