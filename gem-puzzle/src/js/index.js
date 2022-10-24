@@ -50,11 +50,16 @@ fifteen.ondrop = dragEnd;
 
 // Resize
 
+let checkedInput = (localStorage.getItem("checkedInput")) ? +localStorage.getItem("checkedInput") : +1;
 export const inputArr = document.querySelectorAll('.size');
-inputArr[1].checked = true;
+inputArr[checkedInput].checked = true;
 
 export function changeCountSide(check) {
   countSide = +inputArr[check].value;
+}
+
+export function setCheckedInput(inputNum) {
+  checkedInput = inputNum;
 }
 
 inputArr.forEach(e => e.oninput = resize);
@@ -87,6 +92,7 @@ function saveToLS() {
   localStorage.setItem("counter", counter);
   let duration = document.querySelector('.seconds').textContent;
   localStorage.setItem("duration", duration);
+  localStorage.setItem("checkedInput", checkedInput);
 }
 
 function loadMatrixFromLS() {

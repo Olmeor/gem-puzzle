@@ -1,4 +1,4 @@
-import { countSide, matrix, inputArr, changeCountSide, setMatrix } from "./index";
+import { countSide, matrix, inputArr, changeCountSide, setMatrix, setCheckedInput } from "./index";
 import { initDices } from "./init_dices"
 import { initFont } from "./init_font"
 import { getMatrix } from "./init_matrix"
@@ -14,11 +14,10 @@ export const resize = (e) => {
     let diceAmount = countSide ** 2;
     if (inputArr[i].checked ) {
       inputArr[i].checked = true;
-      // countSide = +inputArr[i].value;
+      setCheckedInput(i);
       changeCountSide(i);
       diceAmount = countSide ** 2;
       initDices(diceAmount);
-      // matrix = getMatrix();
       setMatrix();
       setPositionDices();
       fifteen.onclick = shiftDice;
