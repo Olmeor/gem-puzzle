@@ -1,7 +1,22 @@
 import { counter } from "./shift"
+import { shuffleDice } from "./shuffle"
 import soundScore from "../sounds/excellent.mp3"
 
 export let _soundScore = new Audio(soundScore);
+
+export let arrScore = [];
+
+function setArrScore() {
+  const scoreNumber = document.querySelectorAll(".score-number");
+  const arrTime = document.querySelectorAll(".score-time");
+  const arrMove = document.querySelectorAll(".score-move");
+
+  for (let i = 0; i < 10; i++) {
+    scoreNumber[i].textContent = i + 1;
+    arrTime[i].textContent = '---';
+    arrMove[i].textContent = '---';
+  }
+}
 
 export function openScore(e) {
   const tabScore = document.querySelector('.tab-score');
@@ -13,9 +28,11 @@ export function openScore(e) {
   bodyShadow.classList.add('_active');
   const tabClose = document.querySelector('.close');
   scoreButton.onclick = null;
+  document.getElementById("shuffle").onclick = null;
   tabClose.onclick = closeScore;
 
-  setOrder();
+  // setOrder();
+  setArrScore();
 }
 
 function closeScore() {
@@ -26,21 +43,23 @@ function closeScore() {
   tabScore.classList.add('hidden-block');
   bodyShadow.classList.remove('_active');
   scoreButton.onclick = openScore;
+  document.getElementById("shuffle").onclick = shuffleDice;
   tabClose.onclick = null;
 }
 
 function setOrder() {
-  const scoreNumber = document.querySelectorAll(".score-number")
+  const scoreNumber = document.querySelectorAll(".score-number");
   for (let i = 0; i < 10; i++) {
     scoreNumber[i].textContent = i + 1;
   }
 }
 
-function makeWinner() {
+export function makeWinner() {
   let winTime = document.querySelector('.seconds').textContent;
   let winMove = counter;
-  return {
-    winTime,
-    winMove,
-  };
+  const arrTime = document.querySelectorAll(".score-time");
+  const arrMove = document.querySelectorAll(".score-move");
+  console.log(winTime, winMove);
+  console.log(arrTime, arrMove);
+
 }
