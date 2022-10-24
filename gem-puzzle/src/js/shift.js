@@ -1,7 +1,7 @@
 import { countSide, matrix } from "./index";
 import { setPositionDices } from "./init_pos"
 import { timerRef, elapsed, startTimer, duration } from "./timer";
-import { makeWinner } from "./popup";
+import { addTabScore } from "./popup";
 import soundShift from "../sounds/shift.mp3"
 import soundWin from "../sounds/victory.mp3"
 
@@ -64,10 +64,10 @@ export function swapDice(diceCoords, emptyCoords, matrix) {
 
   if (isWon(matrix) && counter && game) {
     showWin();
-    makeWinner();
     // resetCounter();
     game = false;
     _soundWin.play();
+    addTabScore();
   }
 }
 

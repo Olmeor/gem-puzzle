@@ -12,7 +12,7 @@ import { shiftDice, isWon, resetCounter, resetGame, counter } from "./shift"
 import { allowDrop, dragStart, dragEnd } from "./dragover"
 import { checkWin } from "./timer"
 import { muteAudio } from "./sounds"
-import { openScore, closeScore } from "./popup"
+import { openScore, closeScore, setTabScore, initArrScore } from "./popup"
 import { save } from "./save"
 
 // Init field
@@ -78,6 +78,8 @@ soundButton.onclick = muteAudio;
 const scoreButton = document.querySelector('.score-button');
 const tabClose = document.querySelector('.close');
 scoreButton.onclick = openScore;
+initArrScore();
+setTabScore();
 
 
 // Save
