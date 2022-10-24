@@ -1,8 +1,10 @@
 import { counter } from "./shift"
 import { shuffleDice } from "./shuffle"
 import soundScore from "../sounds/excellent.mp3"
+import soundClose from "../sounds/close.mp3"
 
 export let _soundScore = new Audio(soundScore);
+let _soundClose = new Audio(soundClose);
 
 let arrScore = (localStorage.getItem("score")) ? loadScore() : [];
 
@@ -131,10 +133,10 @@ function closeScore() {
   scoreButton.onclick = openScore;
   document.getElementById("shuffle").onclick = shuffleDice;
   tabClose.onclick = null;
+  _soundClose.play();
 }
 
 function saveScore() {
-  // localStorage.removeItem("score");
   localStorage.setItem("score", JSON.stringify(arrScore));
 }
 
