@@ -57,7 +57,7 @@ export function swapDice(diceCoords, emptyCoords, matrix) {
         startTimer();
   }
 
-  if (timerRef) {
+  if (timerRef && game) {
     counter++;
     document.querySelector('.moves').textContent = `${counter}`;
   }

@@ -46,7 +46,7 @@ export function initLayout() {
   const _button = document.createElement('button');
   _button.classList.add('button');
   _button.id = 'shuffle';
-  _button.textContent = 'New game';
+  _button.textContent = 'NEW GAME';
   _buttonWrapper.append(_button);
 
   const _saveButton = document.createElement('button');
@@ -124,7 +124,8 @@ export function initLayout() {
 
   const _closeButton = document.createElement('button');
   _closeButton.classList.add('button');
-  _closeButton.textContent = 'Close';
+  _closeButton.classList.add('close');
+  _closeButton.textContent = 'CLOSE';
   _scoreWrapper.append(_closeButton);
 }
 

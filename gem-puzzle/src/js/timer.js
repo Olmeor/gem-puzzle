@@ -40,4 +40,5 @@ function loadDurationFromLS() {
 
 export function resetDuration() {
   duration = '0.0';
+  document.querySelector('.seconds').textContent = `0`;
 }

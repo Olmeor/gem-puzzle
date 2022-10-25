@@ -1,6 +1,6 @@
 import { countSide, matrix } from "./index";
 import { setPositionDices } from "./init_pos"
-import { findCoords, isValidSwap, swapDice } from "./shift";
+import { findCoords, isValidSwap, swapDice, _soundShift } from "./shift";
 
 export function allowDrop(e) {
   e.preventDefault();
@@ -28,5 +28,6 @@ export function dragEnd(e) {
   if (isRight) {
     swapDice(diceCoords, emptyCoords, matrix);
     setPositionDices(matrix);
+    _soundShift.play();
   }
 }

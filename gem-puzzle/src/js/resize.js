@@ -4,7 +4,7 @@ import { initFont } from "./init_font"
 import { getMatrix } from "./init_matrix"
 import { setPositionDices } from "./init_pos"
 import { shiftDice, isWon, resetCounter, resetGame } from "./shift"
-import { checkWin } from "./timer"
+import { checkWin, resetDuration } from "./timer"
 
 import soundInput from "../sounds/input.mp3"
 export let _soundInput = new Audio(soundInput);
@@ -25,6 +25,7 @@ export const resize = (e) => {
       checkWin();
       resetCounter();
       resetGame();
+      resetDuration();
       _soundInput.play();
     }
   }
