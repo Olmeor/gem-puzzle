@@ -62,7 +62,6 @@ export function swapDice(diceCoords, emptyCoords, matrix) {
     document.querySelector('.moves').textContent = `${counter}`;
   }
 
-  console.log(isWon(matrix) , counter , game)
   if (isWon(matrix) && counter && game) {
     showWin();
     // resetCounter();
