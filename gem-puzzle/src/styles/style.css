@@ -1,6 +1,6 @@
 .wrapper {
-  max-width: 1280px;
-  padding: 2rem 20vw;
+  max-width: 70vh;
+  padding: 2rem;
   margin: 0 auto;
   text-align: center;
   user-select: none;
@@ -94,24 +94,29 @@ h3 {
 
 .size-wrapper {
   display: flex;
-  justify-content: space-between;
-  font-weight: 700;
-  text-shadow: 1px 1px 1px darkred;
+  justify-content: space-around;
   margin-bottom: 1rem;
 }
 
 .size {
-  margin-right: -3px;
-  margin-left: 5px;
+  display: none;
 }
 
 .label {
-  /* font-size: 1.5rem; */
   font-size: 1.2rem;
+  font-weight: 700;
+  color: goldenrod;
+  text-shadow: 1px 1px 1px darkred;
+  display: inline-block;
+  padding: 4px 8px;
+  cursor: pointer;
+  background-color: black;
+  border-radius: 10px;
+  border: 5px solid darkred;
 }
 
-body {
-  accent-color: darkred;
+.size:checked + .label {
+  color: red;
 }
 
 .hide {
@@ -196,11 +201,10 @@ body {
 
 .tab-score {
   position: absolute;
-
   width: 100%;
   max-width: 270px;
   height: auto;
-  top: 30px;
+  top: 15px;
   left: calc((100% - 270px) / 2 );
   transition: all 0.4s ease;
   z-index: 1;
@@ -240,29 +244,57 @@ body {
 .close {
   margin-top: 20px;
   box-shadow: none;
+  padding: 5px 8px;
 }
+
 
 @media screen and (max-width: 640px) {
 
-  .score-wrapper {
-    font-size: 1.2rem;
+  .label {
+    font-size: 1.1rem;
+  }
+  
+  h3 {
+    margin-bottom: .5rem;
   }
 }
 
 @media screen and (max-width: 480px) {
+
+  .close {
+    margin-top: 10px;
+  }
 
   .tab-score {
     top: 10px;
   }
 
   .score-wrapper {
-    font-size: 1rem;
+    font-size: 1.2rem;
   }
+
+  .label {
+    font-size: 0.8rem;
+    padding: 3px 7px;
+  }
+
 }
 
 @media screen and (max-width: 400px) {
 
+  .tab-score {
+    padding: 0 20px;
+  }
+
   .score-wrapper {
     font-size: 0.8rem;
   }
+
+  .label {
+    font-size: 0.8rem;
+    padding: 2px 5px;
+    border: 2px solid darkred;
+    border-radius: 7px;
+  }
+
 }

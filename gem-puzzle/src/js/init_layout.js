@@ -25,8 +25,8 @@ export function initLayout() {
     size.innerHTML +=
     `
     <div>
-      <input type="radio" class="size" id="size" name="size" value="${i}"/>
-      <label class="label" for="${i}x${i}">${i}x${i}</label>
+      <input type="radio" class="size" id="radio${i}" name="sizes" value="${i}"/>
+      <label for="radio${i}" class="label" for="${i}x${i}">${i}x${i}</label>
     </div>
     `
   }
