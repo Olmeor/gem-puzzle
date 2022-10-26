@@ -1,3 +1,72 @@
+/* Normalize */
+
+*{
+	padding: 0;
+	margin: 0;
+	border: 0;
+}
+*,*:before,*:after{
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+:focus,:active{outline: none;}
+a:focus,a:active{outline: none;}
+
+nav,footer,header,aside{display: block;}
+
+html,body{
+	height: 100%;
+	width: 100%;
+	font-size: 100%;
+	line-height: 1;
+	font-size: 16px;
+	font-weight: 400;
+	-ms-text-size-adjust: 100%;
+	-moz-text-size-adjust: 100%;
+	-webkit-text-size-adjust: 100%;
+	scroll-behavior: smooth;
+}
+input,button,textarea{font-family:inherit;}
+
+input::-ms-clear{display: none;}
+button{cursor: pointer;}
+button::-moz-focus-inner {padding:0;border:0;}
+a, a:visited{text-decoration: none;}
+a:hover{text-decoration: none;}
+ul li{list-style: none;}
+img{vertical-align: top;}
+
+h1,h2,h3,h4,h5,h6{font-size:inherit;font-weight: 400;}
+
+button,
+html input[type="button"],
+input[type="reset"],
+input[type="submit"],
+input[type="range"],
+input[type="text"] {
+  cursor: pointer;
+  overflow: visible;
+}
+
+button[disabled],
+html input[disabled] {
+  cursor: default;
+}
+
+body {
+  font-family: 'Verdana';
+}
+
+header,
+main,
+footer {
+  margin: 0 auto;
+}
+
+/* ::-webkit-scrollbar {
+	display: none;
+} */
 .wrapper {
   max-width: 70vh;
   padding: 2rem;
@@ -32,7 +101,7 @@ h3 {
 .fifteen {
   width: 100%;
   padding-bottom: 100%;
-  background: url('../images/bg.jpg') no-repeat center;
+  background: url(../assets/c800de5229fdfa2acced.jpg) no-repeat center;
   background-size: contain;
   margin-bottom: 1.5rem;
   position: relative;
@@ -133,13 +202,13 @@ h3 {
 .sound-button {
   width: 45px;
   height: 45px;
-  background: url('../images/volume.svg') no-repeat center;
+  background: url(../assets/fb8e3046e42f153c4d48.svg) no-repeat center;
   background-size: contain;
   transition: 0.3s;
 }
 
 .sound-button_mute {
-  background: url('../images/mute.svg') no-repeat center;
+  background: url(../assets/a7447cd0b6ffcf747698.svg) no-repeat center;
   background-size: contain;
 }
 
@@ -147,7 +216,7 @@ h3 {
   margin-top: 2px;
   width: 45px;
   height: 43px;
-  background: url('../images/save.svg') no-repeat center;
+  background: url(../assets/8f1f4c422c37c81f6039.svg) no-repeat center;
   background-size: contain;
   transition: 0.3s;
 }
@@ -155,7 +224,7 @@ h3 {
 .score-button {
   width: 45px;
   height: 45px;
-  background: url('../images/score.svg') no-repeat center;
+  background: url(../assets/a6aafc2c484400d3c550.svg) no-repeat center;
   background-size: contain;
   transition: 0.3s;
 }
